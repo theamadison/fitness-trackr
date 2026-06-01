@@ -35,3 +35,20 @@ export async function createActivity(token, activity) {
     throw Error(result.message);
   }
 }
+
+/** The given ID is used to request the API to delete the selected activity.*/
+export async function deleteActivity(token, id) {
+  if (!token) {
+    throw Error("You must be signed in to delete an activity.");
+  }
+
+  const response = await fetch(API + "/activities/" + id, {
+    method: "DELETE",
+    headers: { Authorization: "Bearer " + token },
+  });
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
